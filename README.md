@@ -26,7 +26,7 @@ var client = exactOnline.createClient({
 The client can be used to call methods on the Exact Online API
 ```javascript
 // Get current user
-client.sys.me(function(userData) {
+client.sys.me(function(err, userData) {
   console.log(userData); 
 });
 ```
