@@ -31,6 +31,32 @@ client.sys.me(function(err, userData) {
 });
 ```
 
+#Save token-information
+Normally whenever you need to (re)start your node-instance, token and session information with regards to Exact Online aren't saved.
+This means you'll have to re-authenticate your end-user against Exact Online.
+To prevent this, there's a feature to implement your own function to save token-information to (for example) a mongo or mysql-database.
+After saving, another feature is present to insert the previously saved token-information at runtime.
+
+```javascript
+
+// reveiving token-information
+var token = receive_token_from_database();
+
+
+var client = exactOnline.createClient({
+	clientId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // OAuth Client ID
+  clientSecret: 'xxxxxxxxxxxx', // OAuth Client Secret
+  env: 'production', // Environment (production/development)
+  debug: false, // Enable debug logging
+  redirectUri: 'https://example.com/oauth/redirect',
+  passToken: function (access_token) {
+      write_token_to_database(access_token);
+    },
+    startToken: token
+});
+
+````
+
 # Support
 Found a bug? Have a great idea? Feel free to create an issue or a pull request!
 
